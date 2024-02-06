@@ -9,13 +9,12 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class EntregaConfirmadaQueueAdapterOUT implements IEntregaQueueAdapterOUT {
+public class EntregaQueueAdapterOUT implements IEntregaQueueAdapterOUT {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${queue4.name}")
     private String filaEntregasConfirmadas;
@@ -25,7 +24,7 @@ public class EntregaConfirmadaQueueAdapterOUT implements IEntregaQueueAdapterOUT
     @Override
     public void publishEntregaConfirmada(Entrega entrega) {
         rabbitTemplate.convertAndSend(filaEntregasConfirmadas, toMessage(entrega));
-        logger.debug("Publicaçã na fila entregasConfirmadas executada");
+        logger.debug("Publicação na fila entregasConfirmadas executada");
     }
 
     private static String toMessage(Entrega entrega) {
